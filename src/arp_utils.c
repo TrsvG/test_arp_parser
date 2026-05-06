@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "../include/arp_parser.h"
+#include "arp_parser/arp_parser.h"
 
 void handle_parse_error(int error_code) {
   printf("Ошибка парсинга (%d): ", error_code);

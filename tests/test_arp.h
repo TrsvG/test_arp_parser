@@ -2,7 +2,6 @@
 #define TEST_ARP_H
 
 #include <check.h>
-
 #include "arp_parser.h"
 
 TCase* tcase_arp_parsing(void);

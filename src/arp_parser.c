@@ -1,4 +1,4 @@
-#include "../include/arp_parser.h"
+#include "arp_parser/arp_parser.h"
 
 #include <arpa/inet.h>
 #include <string.h>
