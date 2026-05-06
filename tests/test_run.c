@@ -2,8 +2,7 @@
 
 #include "arp_parser.h"
 
-TCase* tcase_arp_parsing(void);
-
+TCase *tcase_arp_parsing(void);
 
 int main() {
   Suite *s = suite_create("ARP_Parser_Suite");
