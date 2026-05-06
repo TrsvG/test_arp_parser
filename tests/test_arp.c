@@ -113,10 +113,14 @@ START_TEST(test_utils_coverage) {
   handle_parse_error(999);
 
   struct arp_packet p_unknown = {
-      .htype = 1, .ptype = 0x0800, .hsize = 6, .psize = 4, .op = 5 // Некорректный OP
+      .htype = 1,
+      .ptype = 0x0800,
+      .hsize = 6,
+      .psize = 4,
+      .op = 5  // Некорректный OP
   };
   print_arp(&p_unknown);
-  
+
   ck_assert_int_eq(1, 1);
 }
 END_TEST
