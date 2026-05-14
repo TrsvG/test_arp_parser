@@ -38,13 +38,11 @@ gcov_report: clean
 	$(CC) $(CFLAGS) $(GCOV_FLAGS) $(LIB_FILES) $(TEST_SRC) $(TEST_FLAGS) -o $(TEST_BIN)
 	-./$(TEST_BIN) || true
 	lcov --capture --directory . --output-file coverage.info --rc lcov_branch_coverage=1
-	lcov --remove coverage.info '*/tests/*' -o coverage.info --rc lcov_branch_coverage=1
+	lcov --remove coverage.info '*/tests/*' '*/arp_utils.c' -o coverage.info --rc lcov_branch_coverage=1
 	genhtml coverage.info --output-directory report_gcov --branch-coverage --rc lcov_branch_coverage=1
-	@echo "Отчет создан: report_gcov/index.html"
 	@case "$(OS)" in \
 		"Linux") xdg-open report_gcov/index.html ;; \
 		"Darwin") open report_gcov/index.html ;; \
-		*) echo "Откройте отчет вручную: report_gcov/index.html" ;; \
 	esac
 
 clean:

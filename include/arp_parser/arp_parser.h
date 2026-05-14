@@ -20,6 +20,7 @@ struct arp_packet {
 
 int parse_arp(const uint8_t *data, size_t len, struct arp_packet *packet);
 uint8_t *read_file(const char *filename, size_t *out_size);
+uint8_t *parse_hex_args(int argc, char *argv[], size_t *out_size);
 void handle_parse_error(int error_code);
 void print_arp(const struct arp_packet *packet);
 
