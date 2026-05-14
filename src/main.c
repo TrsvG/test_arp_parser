@@ -19,9 +19,7 @@ uint8_t *parse_hex_args(int argc, char *argv[], size_t *out_size) {
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        fprintf(stderr, "Использование:\n");
-        fprintf(stderr, "  1. Чтение файла:  %s <путь_к_файлу>\n", argv[0]);
-        fprintf(stderr, "  2. Прямой ввод:    %s <byte1> <byte2> ... <byteN>\n", argv[0]);
+        fprintf(stderr, "Отсутствуют аргументы.\n");
         return 1;
     }
 
@@ -29,8 +27,6 @@ int main(int argc, char *argv[]) {
     size_t data_size = 0;
 
     if (argc == 2) {
-        // Если передан только один аргумент — считаем его путём к файлу
-        printf("Чтение из файла: %s\n", argv[1]);
         buffer = read_file(argv[1], &data_size);
     } else {
         // Если аргументов много — парсим их как байты
