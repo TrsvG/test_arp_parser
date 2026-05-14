@@ -1,6 +1,36 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "arp_parser/arp_parser.h"
+
+uint8_t *read_file(const char *filename, size_t *out_size) {
+  FILE *file = fopen(filename, "rb");
+  if (!file) {
+    perror("Ошибка открытия файла");
+    return NULL;
+  }
+
+  fseek(file, 0, SEEK_END);
+  long file_size = ftell(file);
+  rewind(file);
+
+  uint8_t *buffer = malloc(file_size);
+  if (!buffer) {
+    fclose(file);
+    return NULL;
+  }
+
+  size_t read_count = fread(buffer, 1, file_size, file);
+  fclose(file);
+
+  if (read_count < (size_t)file_size) {
+    free(buffer);
+    return NULL;
+  }
+
+  *out_size = read_count;
+  return buffer;
+}
 
 void handle_parse_error(int error_code) {
   printf("Ошибка парсинга (%d): ", error_code);
