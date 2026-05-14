@@ -25,9 +25,9 @@ void handle_parse_error(int error_code) {
 
 void print_arp(const struct arp_packet *packet) {
   if (packet == NULL) return;
-  
+
   printf("ARP Packet:\n");
-  printf("  Hardware type: 0x%04X\n", packet->htype);
+  printf("  Hardware type: %u\n", packet->htype);
   printf("  Protocol type: 0x%04X\n", packet->ptype);
   printf("  Hardware size: %u\n", packet->hsize);
   printf("  Protocol size: %u\n", packet->psize);
