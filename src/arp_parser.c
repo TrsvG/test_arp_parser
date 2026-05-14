@@ -28,20 +28,5 @@ int parse_arp(const uint8_t *data, size_t len, struct arp_packet *packet) {
   memcpy(packet->tha, data + 18, 6);
   memcpy(packet->tpa, data + 24, 4);
 
-  // Семантические проверки
-  //  мультикаст (224.0.0.0/4)
-  if (packet->spa[0] >= 224 && packet->spa[0] <= 239) return -5;
-  // Loopback (127.0.0.0/8)
-  if (packet->spa[0] == 127) return -5;
-  // ограниченный широковещательный адрес
-  if (packet->spa[0] == 255 && packet->spa[1] == 255 && packet->spa[2] == 255 &&
-      packet->spa[3] == 255)
-    return -5;
-
-  if (packet->tpa[0] >= 224 && packet->tpa[0] <= 239) return -6;
-  if (packet->tpa[0] == 255 && packet->tpa[1] == 255 && packet->tpa[2] == 255 &&
-      packet->tpa[3] == 255)
-    return -6;
-
   return 0;
 }

@@ -18,12 +18,6 @@ void handle_parse_error(int error_code) {
     case -4:
       printf("Неизвестная операция ARP.\n");
       break;
-    case -5:
-      printf("Недопустимый IP отправителя.\n");
-      break;
-    case -6:
-      printf("Недопустимый IP получателя.\n");
-      break;
     default:
       printf("Неизвестный код ошибки.\n");
   }

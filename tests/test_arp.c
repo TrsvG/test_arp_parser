@@ -79,62 +79,7 @@ START_TEST(test_invalid_opcodes) {
 }
 END_TEST
 
-// 5 СЕМАНТИКА
-START_TEST(test_invalid_spa) {
-  struct arp_packet p;
-  uint8_t data[28] = {0};
-
-  data[1] = 1;
-  data[2] = 0x08;
-  data[3] = 0x00;
-  data[4] = 6;
-  data[5] = 4;
-  data[7] = 1;
-
-  data[14] = 224;
-  data[15] = 0;
-  data[16] = 0;
-  data[17] = 1;
-  ck_assert_int_eq(parse_arp(data, 28, &p), -5);
-
-  data[14] = 127;
-  data[15] = 0;
-  data[16] = 0;
-  data[17] = 1;
-  ck_assert_int_eq(parse_arp(data, 28, &p), -5);
-
-  memset(data + 14, 255, 4);
-  ck_assert_int_eq(parse_arp(data, 28, &p), -5);
-
-  memset(data + 14, 0, 4);
-  ck_assert_int_eq(parse_arp(data, 28, &p), 0);
-}
-END_TEST
-
-// 6 СЕМАНТИКА
-START_TEST(test_invalid_tpa) {
-  struct arp_packet p;
-  uint8_t data[28] = {0};
-
-  data[1] = 1;
-  data[2] = 0x08;
-  data[3] = 0x00;
-  data[4] = 6;
-  data[5] = 4;
-  data[7] = 1;
-
-  data[24] = 239;
-  data[25] = 255;
-  data[26] = 0;
-  data[27] = 1;
-  ck_assert_int_eq(parse_arp(data, 28, &p), -6);
-
-  memset(data + 24, 255, 4);
-  ck_assert_int_eq(parse_arp(data, 28, &p), -6);
-}
-END_TEST
-
-// 7 КРАЕВЫЕ ЗНАЧЕНИЯ
+// 5 КРАЕВЫЕ ЗНАЧЕНИЯ
 START_TEST(test_valid_boundaries) {
   struct arp_packet p;
   uint8_t data[28];
@@ -167,7 +112,7 @@ START_TEST(test_valid_boundaries) {
 }
 END_TEST
 
-// 8
+// 6
 START_TEST(test_utils_coverage) {
   handle_parse_error(-1);
   handle_parse_error(-2);
@@ -188,7 +133,7 @@ START_TEST(test_utils_coverage) {
 }
 END_TEST
 
-// 9
+// 7
 START_TEST(test_print_function) {
   struct arp_packet p;
   uint8_t data[28] = {0x00, 0x01, 0x08, 0x00, 0x06, 0x04, 0x00,
@@ -213,8 +158,6 @@ TCase* tcase_arp_parsing(void) {
   tcase_add_test(tc, test_invalid_address_sizes);
   tcase_add_test(tc, test_invalid_network_types);
   tcase_add_test(tc, test_invalid_opcodes);
-  tcase_add_test(tc, test_invalid_spa);
-  tcase_add_test(tc, test_invalid_tpa);
   tcase_add_test(tc, test_valid_boundaries);
   tcase_add_test(tc, test_utils_coverage);
   tcase_add_test(tc, test_print_function);
